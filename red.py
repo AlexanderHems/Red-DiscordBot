@@ -6,6 +6,7 @@
 #		 made by Twentysix
 #
 #
+import urllib, json
 import discord
 import logging
 import time
@@ -401,6 +402,10 @@ async def on_message(message):
                 await blacklist(message, "add")
             elif message.content.startswith(p + "forgive"):
                 await blacklist(message, "remove")
+            elif message.content.startswith(p + "anime"):
+                await getRandomAnime(message)
+            elif message.content.startswith(p + "manga"):
+                await getRandomManga(message)
             elif message.content.startswith(p + "setting"):
                 await modifySettings(message)
             ###################################
@@ -409,6 +414,7 @@ async def on_message(message):
                 await trvsession.checkAnswer(message)
             elif "economy" in modules:
                 await economy.checkCommands(message)
+
 
             if getPollByChannel(message):
                 getPollByChannel(message).checkAnswer(message)
@@ -1392,6 +1398,20 @@ async def playLocal(message):
         else:
             await client.send_message(message.channel, "`" + settings["PREFIX"] + "local [playlist]`")
 
+
+async def getRandomAnime(message):
+    apiUrl = "http://proxer.me/anime/random?format=json&json=random"
+    r = requests.get(apiUrl).json()
+    await client.send_message(message.channel,
+                        "Anime : "+r["name"]+"\nBild : http://cdn.proxer.me/cover/"+r["id"]+".jpg \nLink to Proxer.me : http://proxer.me/info/"+r["id"].format(
+                            id, message.author.name))
+
+async def getRandomManga(message):
+    apiUrl = "http://proxer.me/manga/random?format=json&json=random"
+    r = requests.get(apiUrl).json()
+    await client.send_message(message.channel,
+                              "Manga : "+r["name"]+"\nBild : http://cdn.proxer.me/cover/"+r["id"]+".jpg \nLink to Proxer.me : http://proxer.me/info/"+r["id"].format(
+                                  id, message.author.name))
 
 def getLocalPlaylists():
     dirs = []
