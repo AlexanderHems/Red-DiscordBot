@@ -1423,12 +1423,15 @@ async def getTranslatedGif(message):
     user.remove(user[0])
     user = "+".join(user)
     url = "http://api.giphy.com/v1/gifs/translate?s="+user+"&api_key=dc6zaTOxFJmzC"
+
     json = requests.get(url).json()
     msg = "bla"
     if(json["data"] != []):
        msg = json["data"]["url"]
     else:
-        msg = "Can´t find a gif for your input"
+        url = "http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC";
+        json = requests.get(url).json()
+        msg = "Can´t find a gif for your input,\nbut here a random gif: "+json["data"]["url"]
     await client.send_message(message.channel,
                               msg.format(id, message.author.name))
 
