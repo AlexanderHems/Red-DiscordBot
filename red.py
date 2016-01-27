@@ -55,6 +55,10 @@ def loadHelp():
 	{0}addcom [command] [text] - Add a custom command
 	{0}editcom [command] [text] - Edit a custom command
 	{0}delcom [command] - Delete a custom command
+	{0}replygif [input] - Reply with Translated Gyphyapi
+	{0}anime - get Random anime from Proxer.me
+	{0}manga - get Random manga from Proxer.me
+
 
 	{0}meme help - Memes help
 	{0}audio help - Audio related commands
@@ -406,6 +410,8 @@ async def on_message(message):
                 await getRandomAnime(message)
             elif message.content.startswith(p + "manga"):
                 await getRandomManga(message)
+            elif message.content.startswith(p + "replygif"):
+                await getTranslatedGif(message)
             elif message.content.startswith(p + "setting"):
                 await modifySettings(message)
             ###################################
@@ -1400,7 +1406,7 @@ async def playLocal(message):
 
 
 async def getRandomAnime(message):
-    apiUrl = "http://proxer.me/anime/random?format=json&json=random"
+    apiUrl = "http://proxer.me/anime/random"
     r = requests.get(apiUrl).json()
     await client.send_message(message.channel,
                         "Anime : "+r["name"]+"\nBild : http://cdn.proxer.me/cover/"+r["id"]+".jpg \nLink to Proxer.me : http://proxer.me/info/"+r["id"].format(
@@ -1412,6 +1418,19 @@ async def getRandomManga(message):
     await client.send_message(message.channel,
                               "Manga : "+r["name"]+"\nBild : http://cdn.proxer.me/cover/"+r["id"]+".jpg \nLink to Proxer.me : http://proxer.me/info/"+r["id"].format(
                                   id, message.author.name))
+async def getTranslatedGif(message):
+    user = message.content.split()
+    user.remove(user[0])
+    user = "+".join(user)
+    url = "http://api.giphy.com/v1/gifs/translate?s="+user+"&api_key=dc6zaTOxFJmzC"
+    json = requests.get(url).json()
+    msg = "bla"
+    if(json["data"] != []):
+       msg = json["data"]["url"]
+    else:
+        msg = "Can´t find a gif for your input"
+    await client.send_message(message.channel,
+                              msg.format(id, message.author.name))
 
 def getLocalPlaylists():
     dirs = []
