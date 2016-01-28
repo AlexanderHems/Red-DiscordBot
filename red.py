@@ -1444,16 +1444,16 @@ async def getRandomSteamGame(message):
     storeUrl = "http://store.steampowered.com/api/appdetails?appids="+appid
     storeJson = requests.get(storeUrl).json()
     if "price_overview" in storeJson[appid]["data"]:
-        price = str(storeJson[appid]["data"]["price_overview"]["final"])
+        price = "Price = "+str(storeJson[appid]["data"]["price_overview"]["final"])
         price = price[:len(price)-2]+','+ price[len(price)-2:] + ' ' + storeJson[appid]["data"]["price_overview"]["currency"]
     else:
         price = "Game has no price"
     name = storeJson[appid]["data"]["name"]
     imageUrl = storeJson[appid]["data"]["header_image"]
     if "metacritic" in storeJson[appid]["data"]:
-        metacritic = str(storeJson[appid]["data"]["metacritic"]["score"]) + ' : ' + storeJson[appid]["data"]["metacritic"]["url"]
+        metacritic ="Metacritic = " str(storeJson[appid]["data"]["metacritic"]["score"]) + ' : ' + storeJson[appid]["data"]["metacritic"]["url"]
         price = price + "\n" + metacritic
-    releaseDate = "Release Date : "+storeJson[appid]["data"]["release_date"]["date"]
+    releaseDate = "Release Date = "+storeJson[appid]["data"]["release_date"]["date"]
     await client.send_message(message.channel, getNewUrl + "\n" + name + "\n" + price + "\n" + releaseDate + "\n" + imageUrl.format(id, message.author.name))
 
 def getLocalPlaylists():
