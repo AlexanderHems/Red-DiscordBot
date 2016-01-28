@@ -112,20 +112,20 @@ def loadHelp():
 	Memes list:
 	ID		Name
 	61579	One Does Not Simply
-	438680	Batman Slapping Robin	
+	438680	Batman Slapping Robin
 	61532	The Most Interesting Man In The World
 	101470	Ancient Aliens
 	61520	Futurama Fry
 	347390	X, X Everywhere
 	5496396	Leonardo Dicaprio Cheers
 	61539	First World Problems
-	61546	Brace Yourselves X is Coming	
+	61546	Brace Yourselves X is Coming
 	16464531	But Thats None Of My Business
 	61582	Creepy Condescending Wonka
-	61585	Bad Luck Brian	
+	61585	Bad Luck Brian
 	563423	That Would Be Great
-	61544	Success Kid	
-	405658	Grumpy Cat	
+	61544	Success Kid
+	405658	Grumpy Cat
 	101288	Third World Skeptical Kid
 	8072285	Doge
 	100947	Matrix Morpheus
@@ -133,7 +133,7 @@ def loadHelp():
 	61533	X All The Y
 	1035805	Boardroom Meeting Suggestion
 	245898	Picard Wtf
-	21735	The Rock Driving	
+	21735	The Rock Driving
 	259680	Am I The Only One Around Here
 	14230520	Black Girl Wat
 	40945639	Dr Evil Laser
@@ -141,19 +141,19 @@ def loadHelp():
 	61580	Too Damn High
 	61516	Philosoraptor
 	6235864	Finding Neverland
-	9440985	Face You Make Robert Downey Jr	
+	9440985	Face You Make Robert Downey Jr
 	101287	Third World Success Kid
-	100955	Confession Bear	
+	100955	Confession Bear
 	444501	The lie detector determined that was a lie. The fact that you X determined that was a lie. Maury Povich.
-	97984	Disaster Girl	
-	442575	Aint Nobody Got Time For That	
+	97984	Disaster Girl
+	442575	Aint Nobody Got Time For That
 	109765	Ill Just Wait Here
 	124212	Say That Again I Dare You
-	28251713	Oprah You Get A	
-	61556	Grandma Finds The Internet	
+	28251713	Oprah You Get A
+	61556	Grandma Finds The Internet
 	101440	10 Guy
-	101711	Skeptical Baby	
-	101716	Yo Dawg Heard You	
+	101711	Skeptical Baby
+	101716	Yo Dawg Heard You
 	101511	Dont You Squidward
 
 	For more memes: `https://imgflip.com/memetemplates`
@@ -412,6 +412,8 @@ async def on_message(message):
                 await getRandomManga(message)
             elif message.content.startswith(p + "replygif"):
                 await getTranslatedGif(message)
+            elsif message.content.startswith(p + "steam"):
+                await getRandomSteamGame(message)
             elif message.content.startswith(p + "setting"):
                 await modifySettings(message)
             ###################################
@@ -1406,7 +1408,7 @@ async def playLocal(message):
 
 
 async def getRandomAnime(message):
-    apiUrl = "http://proxer.me/anime/random"
+    apiUrl = "http://proxer.me/anime/random?format=json&json=random"
     r = requests.get(apiUrl).json()
     await client.send_message(message.channel,
                         "Anime : "+r["name"]+"\nBild : http://cdn.proxer.me/cover/"+r["id"]+".jpg \nLink to Proxer.me : http://proxer.me/info/"+r["id"].format(
@@ -1434,6 +1436,10 @@ async def getTranslatedGif(message):
         msg = "Can´t find a gif for your input,\nbut here a random gif: "+json["data"]["url"]
     await client.send_message(message.channel,
                               msg.format(id, message.author.name))
+async def getRandomSteamGame(message):
+    url = "http://store.steampowered.com/explore/random/"
+    getNewUrl = requests.get(url).geturl();
+    await client.send_message(message.channel, getNewUrl.format(id, message.author.name))
 
 def getLocalPlaylists():
     dirs = []
