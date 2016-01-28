@@ -1449,8 +1449,9 @@ async def getRandomSteamGame(message):
     imageUrl = storeJson[appid]["data"]["header_image"]
     if "metacritic" in storeJson[appid]["data"]:
         metacritic = storeJson[appid]["data"]["metacritic"]["score"] + ' : ' + storeJson[appid]["data"]["metacritic"]["url"]
+        price = price + "\n" + metacritic
     releaseDate = "Release Date : "+storeJson[appid]["data"]["release_date"]["date"]
-    await client.send_message(message.channel, getNewUrl + "\n" + name + "\n" + price + "\n" + metacritic + "\n" + releaseDate + "\n" + imageUrl.format(id, message.author.name))
+    await client.send_message(message.channel, getNewUrl + "\n" + name + "\n" + price + "\n" + releaseDate + "\n" + imageUrl.format(id, message.author.name))
 
 def getLocalPlaylists():
     dirs = []
