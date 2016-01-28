@@ -1447,7 +1447,8 @@ async def getRandomSteamGame(message):
     price = price[:len(price)-2]+','+ price[2:] + ' ' + storeJson[appid]["data"]["price_overview"]["currency"]
     name = storeJson[appid]["data"]["name"]
     imageUrl = storeJson[appid]["data"]["header_image"]
-    metacritic = storeJson[appid]["data"]["metacritic"]["score"] + ' : ' + storeJson[appid]["data"]["metacritic"]["url"]
+    if "metacritic" in storeJson[appid]["data"]:
+        metacritic = storeJson[appid]["data"]["metacritic"]["score"] + ' : ' + storeJson[appid]["data"]["metacritic"]["url"]
     releaseDate = "Release Date : "+storeJson[appid]["data"]["release_date"]["date"]
     await client.send_message(message.channel, getNewUrl + "\n" + name + "\n" + price + "\n" + metacritic + "\n" + releaseDate + "\n" + imageUrl.format(id, message.author.name))
 
