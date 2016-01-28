@@ -412,7 +412,7 @@ async def on_message(message):
                 await getRandomManga(message)
             elif message.content.startswith(p + "replygif"):
                 await getTranslatedGif(message)
-            elsif message.content.startswith(p + "steam"):
+            elif message.content.startswith(p + "steam"):
                 await getRandomSteamGame(message)
             elif message.content.startswith(p + "setting"):
                 await modifySettings(message)
@@ -1438,7 +1438,7 @@ async def getTranslatedGif(message):
                               msg.format(id, message.author.name))
 async def getRandomSteamGame(message):
     url = "http://store.steampowered.com/explore/random/"
-    getNewUrl = requests.get(url).geturl();
+    getNewUrl = requests.get(url).url
     await client.send_message(message.channel, getNewUrl.format(id, message.author.name))
 
 def getLocalPlaylists():
