@@ -1439,7 +1439,17 @@ async def getTranslatedGif(message):
 async def getRandomSteamGame(message):
     url = "http://store.steampowered.com/explore/random/"
     getNewUrl = requests.get(url).url
-    await client.send_message(message.channel, getNewUrl.format(id, message.author.name))
+    slugs = getNewUrl.split("/")
+    appid = slugs[len(slugs)-1]
+    storeUrl = "http://store.steampowered.com/api/appdetails?appids="+appid
+    storeJson = requests.get(storeUrl).json()
+    price = storeJson["data"]["price_overview"]["final"]
+    price = price[:len(price)-2]+','+ price[2:] + ' ' + storeJson["data"]["price_overview"]["currency"]
+    name = storeJson["data"]["name"]
+    imageUrl = storeJson["data"]["header_image"]
+    metacritic = storeJson["data"]["metacritic"]["score"] + ' : ' + storeJson["data"]["metacritic"]["url"]
+    releaseDate = "Release Date : "+storeJson["data"]["release_date"]["date"]
+    await client.send_message(message.channel, getNewUrl + "\n" + name + "\n" + price + "\n" + metacritic + "\n" + releaseDate + "\n" + imageUrl.format(id, message.author.name))
 
 def getLocalPlaylists():
     dirs = []
