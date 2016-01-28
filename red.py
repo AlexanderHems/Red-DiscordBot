@@ -1446,7 +1446,7 @@ async def getRandomSteamGame(message):
     if "price_overview" in storeJson[appid]["data"]:
         price = str(storeJson[appid]["data"]["price_overview"]["final"])
         price = price[:len(price)-2]+','+ price[len(price)-2:] + ' ' + storeJson[appid]["data"]["price_overview"]["currency"]
-    else
+    else:
         price = "Game has no price"
     name = storeJson[appid]["data"]["name"]
     imageUrl = storeJson[appid]["data"]["header_image"]
