@@ -1443,7 +1443,7 @@ async def getRandomSteamGame(message):
     appid = slugs[len(slugs)-1]
     storeUrl = "http://store.steampowered.com/api/appdetails?appids="+appid
     storeJson = requests.get(storeUrl).json()
-    if "price_overview" in storeJson[appid]["data"]
+    if "price_overview" in storeJson[appid]["data"]:
         price = str(storeJson[appid]["data"]["price_overview"]["final"])
         price = price[:len(price)-2]+','+ price[len(price)-2:] + ' ' + storeJson[appid]["data"]["price_overview"]["currency"]
     else
