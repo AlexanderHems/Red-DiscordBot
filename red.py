@@ -19,6 +19,7 @@ import youtube_dl
 import os
 import asyncio
 import glob
+import random
 from os import path
 from random import choice, randint, shuffle
 import dataIO  # IO settings, proverbs, etc
