@@ -1468,6 +1468,7 @@ async def getRandomSpodermanMeme(message):
     url = "https://api.imgur.com/3/gallery/NcHpG"
     headers = {"Authorization": "Client-ID 52c6e89eac4bb0f"}
     data = requests.get(url, headers=headers).json
+    number = 0
     if len(content) >= 2 and int(content[1]) > 0 and int(content[1]) < 231 :
         number = int(content[1])
     else:
