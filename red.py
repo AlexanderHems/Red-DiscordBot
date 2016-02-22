@@ -1464,7 +1464,7 @@ async def getRandomSpodermanMeme(message):
     """BLA BLA METHOD."""
     url = "https://api.imgur.com/3/gallery/NcHpG"
     headers = {"Authorization": "Client-ID 52c6e89eac4bb0f"}
-    data = request.get(url, headers=headers).json()
+    data = requests.get(url, headers=headers).json()
     number = int(random.random()*229)
     link = data['data']['images'][number]['link']
     await client.send_message(message.channel, link.format(id, message.author.name))
