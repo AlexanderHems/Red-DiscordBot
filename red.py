@@ -1471,7 +1471,7 @@ async def getRandomSpodermanMeme(message):
     number = 0
     if len(content) >= 2 and int(content[1]) > 0 and int(content[1]) < 231 :
         number = int(content[1])
-    else:
+    else :
         number = int(random.random()*229)
     link = data['data']['images'][number]['link']
     await client.send_message(message.channel, link.format(id, message.author.name))
