@@ -1469,7 +1469,7 @@ async def getRandomSpodermanMeme(message):
     data = requests.get(url, headers=headers).json
     number = 0
     if len(content) == 2 :
-        number = int(content[1])
+        number = content[1]
     else :
         number = int(random.random()*229)
     link = data['data']['images'][number]['link']
