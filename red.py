@@ -414,6 +414,8 @@ async def on_message(message):
                 await getTranslatedGif(message)
             elif message.content.startswith(p + "steam"):
                 await getRandomSteamGame(message)
+            elif message.content.startswith(p + "spoderman"):
+                await getRandomSpodermanMeme(message)
             elif message.content.startswith(p + "setting"):
                 await modifySettings(message)
             ###################################
@@ -1457,6 +1459,17 @@ async def getRandomSteamGame(message):
         price = price + "\n" + metacritic
     releaseDate = "Release Date = "+storeJson[appid]["data"]["release_date"]["date"]
     await client.send_message(message.channel, getNewUrl + "\n" + name + "\n" + price + "\n" + releaseDate + "\n" + imageUrl.format(id, message.author.name))
+
+async def getRandomSpodermanMeme(message):
+    """BLA BLA METHOD."""
+    request = urllib.request.Request("https://api.imgur.com/3/gallery/NcHpG")
+    request.add_header("Authorization", "Client-ID 52c6e89eac4bb0f")
+    response = urllib.request.urlopen(request)
+    str_response = response.readall().decode('utf-8')
+    data = json.loads(str_response)
+    number = int(random.random()*229)
+    print()
+    await client.send_message(message.channel, data['data']['images'][number]['link'].format(id, message.author.name))
 
 def getLocalPlaylists():
     dirs = []
