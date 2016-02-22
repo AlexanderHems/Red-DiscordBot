@@ -1462,14 +1462,12 @@ async def getRandomSteamGame(message):
 
 async def getRandomSpodermanMeme(message):
     """BLA BLA METHOD."""
-    request = urllib.request.Request("https://api.imgur.com/3/gallery/NcHpG")
-    request.add_header("Authorization", "Client-ID 52c6e89eac4bb0f")
-    response = urllib.request.urlopen(request)
-    str_response = response.readall().decode('utf-8')
-    data = json.loads(str_response)
+    url = "https://api.imgur.com/3/gallery/NcHpG"
+    headers = {"Authorization": "Client-ID 52c6e89eac4bb0f"}
+    data = request.get(url, headers=headers).json()
     number = int(random.random()*229)
-    print()
-    await client.send_message(message.channel, data['data']['images'][number]['link'].format(id, message.author.name))
+    link = data['data']['images'][number]['link']
+    await client.send_message(message.channel, link.format(id, message.author.name))
 
 def getLocalPlaylists():
     dirs = []
