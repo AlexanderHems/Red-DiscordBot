@@ -68,7 +68,7 @@ def loadHelp():
 	""".format(settings["PREFIX"])
 
     audio_help = """
-	**General audio help commands (admin only):**
+	**General audio help commands:**
 	{0}next or {0}skip - Next song
 	{0}prev - Previous song
 	{0}pause - Pause song
@@ -81,7 +81,7 @@ def loadHelp():
 	{0}volume [0-1] - Sets the volume
 	{0}downloadmode - Disables/enables download mode
 
-	**Playlist commands (admin only):**
+	**Playlist commands:**
 	{0}play [playlist_name] - Play chosen playlist
 	{0}playlists - Playlists' list
 	{0}shuffle - Mix music list
@@ -89,16 +89,16 @@ def loadHelp():
 	{0}delplaylist [name] - Delete a youtube playlist. Limited to author and admins.
 	{0}getplaylist - Receive the current playlist through DM. This also works with favorites.
 
-	**Local commands (admin only):**
+	**Local commands :**
 	{0}local [playlist_name] - Play chosen local playlist
 	{0}locallist or {0}local or {0}locals - Local playlists' list
 
-	**Favorites (admin only):**
+	**Favorites :**
 	{0}addfavorite - Add song to your favorites
 	{0}delfavorite - Remove song from your favorites
 	{0}playfavorites - Play your favorites
 
-	**You can submit your own playlist by doing the following (admin only):**
+	**You can submit your own playlist by doing the following :**
 	1) Make a txt file. Name must be only letters, numbers and underscores. It will be your playlist's name, so choose wisely.
 	2) One youtube link each line.
 	3) Send me the txt. If any line is incorrect I will reject it.
@@ -294,59 +294,59 @@ async def on_message(message):
             ################## music #######################
             elif message.content == p + "sing":
                 await playPlaylist(message, sing=True)
-            elif message.content.startswith(p + 'youtube') and isMemberAdmin(message):
+            elif message.content.startswith(p + 'youtube'):
                 await playVideo(message)
-            elif message.content.startswith(p + 'play ') and isMemberAdmin(message):
+            elif message.content.startswith(p + 'play '):
                 await playPlaylist(message)
-            elif message.content.startswith(p + 'local ') and isMemberAdmin(message):
+            elif message.content.startswith(p + 'local '):
                 await playLocal(message)
-            elif (message.content == p + "local" or message.content == p + "locallist" or message.content == p + "locals") and isMemberAdmin(message):
+            elif (message.content == p + "local" or message.content == p + "locallist" or message.content == p + "locals"):
                 await listLocal(message)
                 await client.send_message(message.channel, "{} `Check your DMs for the local playlists list.`".format(
                     message.author.mention))
-            elif message.content == p + "stop" and isMemberAdmin(message):
+            elif message.content == p + "stop":
                 await leaveVoice()
-            elif message.content == p + "playlist" or message.content == p + "playlists" and isMemberAdmin(message):
+            elif message.content == p + "playlist" or message.content == p + "playlists":
                 await listPlaylists(message)
                 await client.send_message(message.channel,
                                           "{} `Check your DMs for the playlists list.`".format(message.author.mention))
-            elif message.content == p + "skip" or message.content == p + "next" and isMemberAdmin(message):
+            elif message.content == p + "skip" or message.content == p + "next":
                 if currentPlaylist: currentPlaylist.nextSong(currentPlaylist.getNextSong())
-            elif message.content == p + "prev" or message.content == p + "previous" and isMemberAdmin(message):
+            elif message.content == p + "prev" or message.content == p + "previous":
                 if currentPlaylist: currentPlaylist.nextSong(currentPlaylist.getPreviousSong())
-            elif message.content == p + "repeat" or message.content == p + "replay" and isMemberAdmin(message):
+            elif message.content == p + "repeat" or message.content == p + "replay":
                 if currentPlaylist: currentPlaylist.nextSong(currentPlaylist.current)
-            elif message.content == p + "pause" and isMemberAdmin(message):
+            elif message.content == p + "pause":
                 if currentPlaylist: currentPlaylist.pause()
-            elif message.content == p + "resume" and isMemberAdmin(message):
+            elif message.content == p + "resume":
                 if currentPlaylist: currentPlaylist.resume()
-            elif message.content == p + "shuffle" and isMemberAdmin(message):
+            elif message.content == p + "shuffle":
                 if currentPlaylist: currentPlaylist.shuffle()
-            elif message.content == p + "song" or message.content == p + "title" and isMemberAdmin(message):
+            elif message.content == p + "song" or message.content == p + "title":
                 if currentPlaylist: await getSongTitle(message)
             elif message.content == p + "audio help":
                 await client.send_message(message.author, audio_help)
                 await client.send_message(message.channel,
                                           "{} `Check your DMs for the audio help.`".format(message.author.mention))
-            elif message.content.startswith(p + "addplaylist") and isMemberAdmin(message):
+            elif message.content.startswith(p + "addplaylist"):
                 await addPlaylist(message)
-            elif message.content.startswith(p + "delplaylist") and isMemberAdmin(message):
+            elif message.content.startswith(p + "delplaylist"):
                 await delPlaylist(message)
-            elif message.content == p + "addfavorite" and isMemberAdmin(message):
+            elif message.content == p + "addfavorite":
                 await addToFavorites(message)
-            elif message.content == p + "delfavorite" and isMemberAdmin(message):
+            elif message.content == p + "delfavorite":
                 await removeFromFavorites(message)
-            elif message.content == p + "playfavorites" and isMemberAdmin(message):
+            elif message.content == p + "playfavorites":
                 await playFavorites(message)
-            elif message.content == p + "getplaylist" and isMemberAdmin(message):
+            elif message.content == p + "getplaylist":
                 await sendPlaylist(message)
-            elif message.content.startswith(p + "volume") and isMemberAdmin(message):
+            elif message.content.startswith(p + "volume"):
                 await setVolume(message)
             elif message.content == p + "downloadmode":
                 await downloadMode(message)
-            elif message.content == p + "endpoll" and isMemberAdmin(message):
+            elif message.content == p + "endpoll":
                 await endPoll(message)
-            elif message.content.startswith(p + "poll") and isMemberAdmin(message):
+            elif message.content.startswith(p + "poll"):
                 await startPoll(message)
             ################################################
             elif message.content == p + "trivia":
